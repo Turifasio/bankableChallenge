@@ -1,3 +1,11 @@
-.v-footer {
-    
+#app {
+    .v-footer {
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .footer-decorator {
+        height: 10px;
+        background-color: var(--color-primary);
+    }
 }

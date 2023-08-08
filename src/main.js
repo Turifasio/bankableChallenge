@@ -23,7 +23,9 @@ const vuetify = createVuetify({
             ripple: false,
         }
     }
-})
+});
+
+app.config.devtools = true;
 
 app.use(store)
 app.use(router)
