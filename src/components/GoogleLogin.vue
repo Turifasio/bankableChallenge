@@ -42,7 +42,8 @@ export default {
                     type: "standard",
                     shape: "pill",
                     theme: "outline",
-                    size: "large"
+                    size: "large",
+                    width: 300
                 }
             );
         });

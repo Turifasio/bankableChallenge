@@ -75,4 +75,23 @@ body {
     .color-secondary {
         color: var(--color-secondary);
     }
+
+    a {
+        text-decoration: none;
+    }
+
+    .section {
+        margin: 25px 0;
+    }
+
+    .banner {
+        background-color: var(--color-primary);
+        min-height: 200px;
+        padding: 50px;
+        color: white;
+    }
+
+    iframe {
+        display: initial !important;
+    }
 }

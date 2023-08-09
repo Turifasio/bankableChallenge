@@ -1,6 +1,7 @@
 @import 'utils/base.scss';
 @import 'utils/buttons.scss';
 @import 'utils/transitions.scss';
+@import 'utils/text.scss';
 @import 'sections/footer.scss';
 @import 'sections/header.scss';
 @import 'sections/login.scss';

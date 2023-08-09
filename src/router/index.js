@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '@/store'
 import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
+import UploadInvoiceView from '../views/UploadInvoiceView.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -10,18 +11,24 @@ const router = createRouter({
             path: '/',
             redirect: { name: 'Login' },
             component: LoginView,
-            meta: { hideFooter: true }
+            meta: { hideUI: true }
         },
         {
             path: '/login/',
             name: 'Login',
             component: LoginView,
-            meta: { hideFooter: true }
+            meta: { hideUI: true }
         },
         {
             path: '/home',
             name: 'Home',
             component: HomeView,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/upload-invoice',
+            name: 'Upload',
+            component: UploadInvoiceView,
             meta: { requiresAuth: true }
         }
     ]
@@ -32,11 +39,11 @@ router.beforeEach((to, from, next) => {
         store.commit('setUserLogged', localStorage.getItem("userLogged"));
     }
 
-    // Set a global variable for footer show conditional
-    if (to.meta.hideFooter) {
-        store.commit('setShowFooter', false);
+    // Set a global variable for UI show conditional
+    if (to.meta.hideUI) {
+        store.commit('setShowUI', false);
     } else {
-        store.commit('setShowFooter', true);
+        store.commit('setShowUI', true);
     }
     
     // Check if the route requires authentication

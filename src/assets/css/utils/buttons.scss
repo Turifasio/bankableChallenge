@@ -1,0 +1,35 @@
+.v-btn {
+    &.menu-button, 
+    &.profile-button {
+        &:hover {
+            .v-btn__overlay {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+.v-btn[aria-haspopup=menu][aria-expanded=true] {
+    &.menu-button {
+        color: white;
+        background-color: var(--color-primary);
+        
+        &:hover {
+            .v-btn__overlay {
+                opacity: 0;
+            }
+        }
+    }
+
+    &.profile-button {
+        .v-btn__overlay {
+            opacity: 0;
+        }
+        
+        &:hover {
+            .v-btn__overlay {
+                opacity: 0;
+            }
+        }
+    }
+}

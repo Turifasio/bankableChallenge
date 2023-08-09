@@ -1,0 +1,22 @@
+.banner-text {
+    color: var(--color-primary);
+    text-shadow: 1px 1px 3px black;
+}
+
+.hideOnMobile {
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+
+.menu-link {
+    a {
+        cursor: pointer;
+        text-decoration: none !important;
+        color: var(--color-text);
+
+        &:hover {
+            color: var(--color-primary);
+        }
+    }
+}
