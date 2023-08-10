@@ -1,5 +1,27 @@
 #app{
     .logo {
-        max-width: 240px;
+        max-width: 245px;
+
+        @media (min-width: 768px) {
+            max-width: 240px;
+        }
+    }
+
+    .v-avatar {
+        img {
+            width: 40px;
+        }
+    }
+
+    .v-toolbar {
+        @media (max-width: 768px) {
+            height: 115px;
+        }
+
+        .v-toolbar__content {
+            @media (max-width: 768px) {
+                height: 115px !important;
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ import { RouterLink } from 'vue-router'
                 <v-row>
                     <v-col cols="12">
                         <div class="d-flex flex-column fill-height text-center">
-                            <h1 class="text-h4 ma-6">
+                            <h1 class="text-h4 mb-6 ma-sm-6">
                                 Most used tools
                             </h1>
                         </div>
@@ -130,7 +130,7 @@ import { RouterLink } from 'vue-router'
                 <v-row>
                     <v-col cols="12">
                         <div class="d-flex flex-column fill-height text-center">
-                            <h1 class="text-h4 ma-6">
+                            <h1 class="text-h4 mb-6 ma-sm-6">
                                 Last news and posts
                             </h1>
                         </div>

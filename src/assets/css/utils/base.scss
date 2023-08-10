@@ -34,6 +34,7 @@
     --color-text: var(--vt-c-text-light-1);
 
     --section-gap: 160px;
+    --divider-color: #c0c0c0;
 
     --color-primary: #f0513f;
     --color-secondary: #21569C;
@@ -87,11 +88,29 @@ body {
     .banner {
         background-color: var(--color-primary);
         min-height: 200px;
-        padding: 50px;
+        padding: 50px 0px;
         color: white;
+
+        @media (min-width: 768px) {
+            padding: 50px;
+        }
     }
 
     iframe {
         display: initial !important;
+    }
+
+    .v-main {
+        @media (max-width: 768px) {
+            margin-top: 50px;
+        }
+    }
+
+    .min-h-40 {
+        min-height: 40px !important;
+    }
+
+    .content-height {
+        min-height: 95vh;
     }
 }
