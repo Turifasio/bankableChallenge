@@ -180,89 +180,95 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref, reactive, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from "axios";
+import { useStore } from 'vuex';
+import axios from 'axios';
 
-export default {
-    data() {
-        return {
-            step: 1,
-            router: useRouter(),
-            formFields: {
-                issuerName: {title: 'Issuer Name', value: ''},
-                invoiceNumber: {title: 'Invoice Number', value: ''},
-                currency: {title: 'Currency', value: ''},
-                totalAmount: {title: 'Total', value: ''},
-                country: {title: 'Country Code', value: ''},
-                vatNumber: {title: 'VAT Number', value: ''},
-                issueDate: {title: 'Issue Date', value: null},
-                dueDate: {title: 'Due Date', value: null},
-                pdf: {title: 'Invoice in PDF', value: null},
-            },
-            today: new Date().toISOString().substr(0, 10),
-            rules: {
-                required: v => !!v || 'Field is required',
-                floatFormat: v => /^\d+(\.\d{1,2})?$/.test(v) || 'Must be a valid number',
-                countryFormat: v => /^[A-Z]{2}$/.test(v) || 'Invalid country ISO format. Ex: ES for Spain',
-                vatFormat: v => /^([A-Z]{2})?\d{9,12}$/.test(v) || 'Invalid VAT number format. Ex: TE123456789'
-            }
-        };
-    },
-    methods: {
-        async secondStep() {
-            if (await this.validateForm()) {
-                this.step = 2;
-            }
-        },
-        prevStep() {
-            this.step--;
-        },
-        restart() {
-            this.$refs.invoiceForm.reset();
-            this.step = 1;
-        },
-        async validateForm() {
-            this.$refs.invoiceForm.resetValidation();
-            await this.$refs.invoiceForm.validate();
+const invoiceForm = ref(null);
+const step = ref(1);
+const formFields = reactive({
+    issuerName: { title: 'Issuer Name', value: '' },
+    invoiceNumber: { title: 'Invoice Number', value: '' },
+    currency: { title: 'Currency', value: '' },
+    totalAmount: { title: 'Total', value: '' },
+    country: { title: 'Country Code', value: '' },
+    vatNumber: { title: 'VAT Number', value: '' },
+    issueDate: { title: 'Issue Date', value: null },
+    dueDate: { title: 'Due Date', value: null },
+    pdf: { title: 'Invoice in PDF', value: null },
+});
 
-            return this.$refs.invoiceForm.isValid;
-        },
-        async submitForm() {
-            this.$store.commit('setLoading', true);
+const today = new Date().toISOString().substr(0, 10);
+const router = useRouter();
+const store = useStore();
 
-            try {
-                // Make an API request to send the formData to the server
-                //This should be a post action but we will use a fake api to simulate the loading
-                //const response = await axios.post('/apiURL', this.formFields);
-                const response = await axios.get(this.$store.state.fakeAPI);
+const rules = {
+    required: v => !!v || 'Field is required',
+    floatFormat: v => /^\d+(\.\d{1,2})?$/.test(v) || 'Must be a valid number',
+    countryFormat: v => /^[A-Z]{2}$/.test(v) || 'Invalid country ISO format. Ex: ES for Spain',
+    vatFormat: v => /^([A-Z]{2})?\d{9,12}$/.test(v) || 'Invalid VAT number format. Ex: TE123456789',
+};
 
-                //Simulating a correct response from the api
-                if (response.data.id == 1) {
-                    //Fake api call time response
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-                    this.step = 3;
-                }
-
-            } catch (error) {
-                console.error('Error submitting form:', error);
-            }
-            
-            this.$store.commit('setLoading', false);
-        },
-        finish() {
-            this.router.push('/home');
-        },
-        //This function control the css of the steps system
-        stepState(number) {
-            if (number == this.step) {
-                return "step-active";
-            } else if (number < this.step) {
-                return "step-finished";
-            } else {
-                return "step-inactive";
-            }
-        }
+const secondStep = async () => {
+    if (await validateForm()) {
+        step.value = 2;
     }
 };
+
+const prevStep = () => {
+    step.value--;
+};
+
+const restart = () => {
+    // Reset form fields and step
+    invoiceForm.value.reset();
+    step.value = 1;
+};
+
+const validateForm = async () => {
+    invoiceForm.value.resetValidation();
+    await invoiceForm.value.validate();
+
+    return invoiceForm.value.isValid;
+};
+
+const submitForm = async () => {
+    store.commit('setLoading', true);
+
+    try {
+        // Make an API request to send the formData to the server
+        // This should be a post action but we will use a fake api to simulate the loading
+        // const response = await axios.post('/apiURL', formFields);
+        const response = await axios.get(store.state.fakeAPI);
+
+        // Simulating a correct response from the api
+        if (response.data.id == 1) {
+            // Fake api call time response
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            step.value = 3;
+        }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+    }
+
+    store.commit('setLoading', false);
+};
+
+const finish = () => {
+    router.push('/home');
+};
+
+// This function controls the css of the steps system
+const stepState = number => {
+    if (number == step.value) {
+        return 'step-active';
+    } else if (number < step.value) {
+        return 'step-finished';
+    } else {
+        return 'step-inactive';
+    }
+};
+
 </script>
