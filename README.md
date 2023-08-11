@@ -4,9 +4,7 @@ This project is a practice to simulate an online app, where the user can login u
 
 INSTALLATION
 
-This project is available in Github pages for an easiest use: 
-
-Can be cloned to your local machine, if you choose this option, you just need to follow the steps:
+Can be cloned to your local machine, you just need to follow the steps:
 
 1- Clone the repository
 2- Run "npm run dev"
